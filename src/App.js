@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import React,{useState,useEffect} from 'react'
+import PostData from './PostData'
+const App = () => {
+  const [users,setUsers]=useState([])
+  const [name,setName]=useState("")
+  const handler=async()=>{
+    const data=await fetch("https://jsonplaceholder.typicode.com/users")
+    const alldata= await data.json()
+    setUsers(alldata)
+    console.log(alldata)
+  }
+  useEffect(()=>{
+    handler()
+  },[])
+  console.log(name)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+    <div className='data'>
+      <div className='box'>
+                    <input type="text"  onChange={(e)=>setName(e.target.value)}></input>
+                    <button type='submit'>Search</button>
+                </div>
+      {users.map((values)=>{
+            return(
+                <>
+                <div>
+                  {(if{user==values.name}{
+                    console.log(values.name)
+                  })}
+                </div>
+                </>
+            )
+        })}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
